@@ -1,38 +1,41 @@
 "use strict";
-// 1 - funcoes sem retorno
+// 1 - funções sem retorno
 function withoutReturn() {
     console.log('Não tem retorno');
     // return 1
 }
 withoutReturn();
-// 2 - callback como argumento
+// 2 - callback functions como argumento da função
 function greeting(name) {
     return `Olá ${name}!`;
 }
-function preGreeting(f, name) {
+function preGreeting(f, userName) {
+    //                 f: = tipando a callback como função
     console.log('Preparando a saudação!');
-    const greet = f(name);
+    const greet = f(userName);
     console.log(greet);
 }
-preGreeting(greeting, 'Matheus');
-preGreeting(greeting, 'João');
+preGreeting(greeting, 'Rafael');
+preGreeting(greeting, 'Casio');
 // 3 - generic function
 function firstElement(arr) {
+    //                  <T> Definição do generic type
     return arr[0];
 }
 console.log(firstElement([1, 2, 3]));
 console.log(firstElement([true, false]));
-console.log(firstElement([]));
+console.log(firstElement(['a', 'b', 'c']));
 // firstElement('a')
 function mergeObjects(obj1, obj2) {
     return {
         ...obj1,
+        // ... Spread operator. 'Espalha' todas as propiedades, valores, e metodos do objeto 
         ...obj2,
     };
 }
 const newObj = mergeObjects({ name: 'Matheus' }, { age: 30 });
 console.log(newObj);
-// 4 - constraints
+// 4 - constraints. Constraints deixa a função mais limitada a tipos de valores especificos
 function biggestNumber(a, b) {
     let biggest;
     if (+a > +b) {

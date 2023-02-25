@@ -1,5 +1,5 @@
 // 1 - arrays
-let nums: number[] = [1, 2, 3]
+let nums: number[] = [1, 2, 3, 8, 7]
 
 nums.push(5)
 
@@ -8,7 +8,7 @@ console.log(nums[2])
 // nums.push('a')
 // nums = 'teste'
 
-const nomes = ['Matheus', 'Pedro']
+const nomes = ['Rafael', 'Eduarda']
 
 // nomes.push(2)
 
@@ -21,8 +21,8 @@ numbers.push(200)
 
 console.log(numbers[1])
 
-// 3 - any
-const arr: any[] = [1, 'teste', true, { nome: 'Matheus' }]
+// 3 - any. Any is a type that accept any type(number, string, boolean)
+const arr: any[] = [1, 'teste', true, { nome: 'Rafael' }]
 
 console.log(arr)
 
@@ -46,9 +46,8 @@ function greeting(name: string): string {
   // return 1
 }
 
-console.log(greeting('Matheus'))
+console.log(greeting('Rafael'))
 
-// greeting(1)
 
 // 6 - funcoes anonimas
 setTimeout(function () {
@@ -61,14 +60,14 @@ setTimeout(function () {
 
 function passCoordinates(coord: { x: number; y: number }) {
   console.log('X coordinates: ' + coord.x)
-  console.log('X coordinates: ' + coord.y)
+  console.log('Y coordinates: ' + coord.y)
 }
 
 const objCoord = { x: 10, y: 5 }
 
 passCoordinates(objCoord)
 
-// 8 - propriedades opcionais
+// 8 - propriedades opcionais. Uso de ?
 function showNumbers(a: number, b: number, c?: number) {
   console.log('A: ' + a)
   console.log('B: ' + b)
@@ -84,35 +83,44 @@ function advancedGreeting(firstName: string, lastName?: string) {
   if (lastName !== undefined) {
     console.log(`Olá, ${firstName} ${lastName}, tudo bem?`)
   }
-
-  console.log(`Olá, ${firstName}, tudo bem?`)
+  else{
+    console.log(`Olá, ${firstName}, tudo bem?`)
+  }
+  
 }
+advancedGreeting('Rafael', 'Holder')
+advancedGreeting('Duda')
 
-advancedGreeting('Matheus', 'Battisti')
-advancedGreeting('João')
 
-// 10 - union type
+// 10 - union type. Use of Two types in a var
 function showBalance(balance: string | number) {
-  console.log(`O saldo da conta é R$${balance}`)
+  if(typeof balance === 'string'){
+    console.log(`O saldo da conta é R$${balance}, Balance is a string`)
+  }
+  else{
+    console.log(`O saldo da conta é R$${balance}, Balance is a number`)
+  }
+  
 }
 
 showBalance(500)
 showBalance('100')
 
-// 11 - mais sobre union types
+// 11 - mais sobre union types. Validação de union types
 function showUserRole(role: boolean | string) {
   if (typeof role === 'boolean') {
     console.log('Usuário não aprovado!')
   }
-  console.log(`O usuário é um: ${role}`)
+  else{
+    console.log(`O usuário é um: ${role}`)
+  }
 }
-
 showUserRole(false)
 showUserRole('Admin')
 showUserRole('Editor')
 
 // 12 - type alias
-type ID = number | string
+type ID = number | string;
 
 function showId(id: ID) {
   console.log(`O ID é: ${id}`)
@@ -124,14 +132,16 @@ showId(20)
 type User = {
   name: string
   surname: string
+  age: number
 }
 
 function userDetails(user: User) {
   console.log(`Nome: ${user.name}`)
   console.log(`Sobrenome: ${user.surname}`)
+  console.log(`Idade: ${user.age}`)
 }
 
-userDetails({ name: 'Matheus', surname: 'Battisti' })
+userDetails({ name: 'Rafael', surname: 'Holder', age: 20 })
 
 // 13 - interfaces
 interface Point {
@@ -153,20 +163,20 @@ const itemCoords = {
 showCoords(itemCoords)
 
 // 14 - interface x type alias
+// Interface can change along the code.
+// alias can't change along the code.
 
 interface Person {
   name: string
 }
 
-const randomNumber = 10
-
 interface Person {
   age: number
 }
 
-const somePerson: Person = { name: 'João', age: 25 }
+const somePerson: Person = { name: 'Clovis', age: 24 }
+console.log(somePerson);
 
-console.log(somePerson)
 
 type personType = {
   name: string
@@ -176,9 +186,10 @@ type personType = {
 //     age: number
 // }
 
-// 15 - literal types
-let test: 'testando'
 
+
+// 15 - literal types. Allocate one or more unique values to the var
+let test: 'testando'
 test = 'testando'
 
 // test = "opa"
@@ -189,7 +200,7 @@ function showDirection(direction: 'left' | 'right' | 'center') {
 
 showDirection('left')
 showDirection('center')
-//showDirection("up")
+//showDirection("up")    // Gone wrong
 
 // 16 - non-null assertion
 const p = document.getElementById('some-p')
@@ -197,14 +208,9 @@ const p = document.getElementById('some-p')
 console.log(p!.innerText)
 
 // 17 - big int
-
 let n: bigint
 
-// n = 1
-
 n = 1000n
-
-// console.log(n + 1)
 
 console.log(n + 10n)
 

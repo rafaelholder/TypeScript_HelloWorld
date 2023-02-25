@@ -1,5 +1,6 @@
 "use strict";
-// 1 - type guard
+// Narrowing is a resource that identifies data type
+// 1 - type guard. Validação de tipos usando typeof
 function sum(a, b) {
     if (typeof a === 'string' && typeof b === 'string') {
         console.log(parseFloat(a) + parseFloat(b));

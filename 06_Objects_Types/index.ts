@@ -1,155 +1,137 @@
-// 1 - tipo de objeto para funções
+
+// 1- Tipo de objeto para função com interface
 interface Product {
   name: string
   price: number
-  isAvailable: true
+  isAvailable: boolean
 }
+function showProductDetails(product: Product){
+  
+  if(product.isAvailable){
+    console.log(`O produto ${product.name} está disponivel e seu preço é ${product.price}!`)
+  }
+  else{
+    console.log(`O nome do produto é: ${product.name}. Seu preço é ${product.price}! \n Não esta disponivel`)
 
-function showProductDetails(product: Product) {
-  console.log(
-    `O nome do produto é ${product.name}, seu preço é R$${product.price}`,
-  )
-  if (product.isAvailable) {
-    console.log('Este produto está disponível!')
   }
 }
-
-const shirt: Product = {
+const shirt:Product = {
   name: 'Camisa',
-  price: 29.99,
+  price: 99.99,
   isAvailable: true,
 }
+const shirt_exclusive:Product = {
+  name: 'Camisa de coleção',
+  price: 999.99,
+  isAvailable: false,
 
-showProductDetails(shirt)
+}
+showProductDetails(shirt);
+showProductDetails(shirt_exclusive);
 
-// 2 - propriedade opcional em interface
+
+//Interface com parametro opcional ?
 interface User {
-  email: string
-  role?: string
+  email: string,
+  role?: string,
 }
-
-function showUserDetails(user: User) {
-  console.log(`E-mail do usuário: ${user.email}`)
-  if (user.role) {
-    console.log(`Sua função no sistema é de: ${user.role}`)
-  }
+function showUserDetails(user:User) {
+    console.log(`O user tem o email: ${user.email}`);
+    if(user.role){
+      console.log(`O user ${user.email} tem a função de ${user.role}`)
+    }
 }
+const user_1:User = {
+  email: 'teste@gmail.com',
+  role: 'Admin',
+}
+const user_2:User = {
+  email: 'testeTestado@gmail.com',
+}
+showUserDetails(user_1);
+showUserDetails(user_2);
 
-const u1 = { email: 'matheus@teste.com', role: 'Admin' }
-const u2 = { email: 'joao@teste.com' }
-
-showUserDetails(u1)
-showUserDetails(u2)
-
-// 3 - readonly
+// Readonly. Uma forma de criar um valor constante
 interface Car {
-  brand: string
+  brand: string,
   readonly wheels: number
 }
-
-const fusca: Car = {
-  brand: 'Vw',
+const fusca:Car = {
+  brand: 'Volkswagen',
   wheels: 4,
 }
+console.log(fusca);
 
-// fusca.wheels = 5
 
-// 4 - index signature
+// Index Signature. Restringe tipos que não queremos usar.
 interface CoordObject {
-  [index: string]: number
+  [index: string] : number,
 }
-
 let coords: CoordObject = {
-  x: 10,
+  // x: 'coordenada'
+  x: 24.383
 }
-
-// coords.y = 'teste'
-coords.y = 15
-
+coords.y = 19.060
 console.log(coords)
 
-interface OnlyNumberArray {
-  [index: number]: number
-}
 
-const arr1: OnlyNumberArray = [1, 2, 3]
-// const arr2: OnlyNumberArray = ['1', '2', '3']
-
-// 5 - extending types
+// Heranças de interfaces. Extends types
 interface Human {
-  name: string
+  name: string,
   age: number
 }
-
 interface SuperHuman extends Human {
-  superpowers: string[]
+  superPowers: string[]
 }
-
-const goku: SuperHuman = {
-  name: 'Goku',
-  age: 50,
-  superpowers: ['Kamehameha', 'Genki Dama'],
+const rafael: Human = {
+  name: 'rafael',
+  age: 20
 }
+const toguro: SuperHuman = {
+  name: 'toguro',
+  age: 0,
+  superPowers: ['shape maximo', 'em pleno...']
+}
+console.log(toguro.superPowers);
 
-console.log(goku)
 
-// 6 - intersection types
-interface Character {
+// Intersection types. Usados para unir interfaces e criar interfaces mais complexas
+interface Person {
   name: string
 }
-
 interface Gun {
-  type: string
-  caliber: number
+  type: string,
+  caliber: number,
 }
+type PersonWithGun = Person & Gun;
 
-type HumanWithGun = Character & Gun
-
-const arnold: HumanWithGun = {
+const arnold: PersonWithGun = {
   name: 'Arnold',
   type: 'Shotgun',
   caliber: 12,
 }
+console.log(arnold);
 
-console.log(arnold)
 
-// 7 - read only array
-
-let myArray: ReadonlyArray<string> = ['Maçã', 'Laranja', 'Pêra']
-
-// myArray[3] = 'Mamão'
-
-myArray.forEach((item) => {
-  console.log('Fruta: ' + item)
-})
+// Readonly arrays. Arrays que não podem alterados apos a criação. Pode ser alterado usando metodos(ex: map)
+let myArray:ReadonlyArray<string> = ['maçã', 'laranja', 'banana'];
+console.log(myArray);
 
 myArray = myArray.map((item) => {
   return `Fruta: ${item}`
-})
+});
 
-console.log(myArray)
 
-// 8 - tuplas
-type fiveNumbers = [number, number, number, number, number]
+// Tuplas. Restrige o tipo e a quantidade de elementos. Deixa os arrays previsiveis.
+type fiverNumber = [number, number, string, number, number];
 
-const myNumberArray: fiveNumbers = [1, 2, 3, 4, 5]
-// const myNumberArray2: fiveNumbers = [1,2,3,4,5,6]
-// const mixedArray: fiveNumbers = ["teste", 1]
+const myNumberArray:fiverNumber = [1, 2, '3' , 4, 5];
 
-type nameAndAge = [string, number]
-
-const anotherUser = ['Matheus', 30]
-
-anotherUser[1] = 'João'
-
-console.log(anotherUser)
-
-// 9 - tuplas com readonly
-function showNumbers(numbers: readonly [number, number]) {
-  // numbers[0] = 10
-  console.log(numbers[0])
-  console.log(numbers[1])
+// Tuplas com readOnly. Limita quantos itens e não permite modificações faceis.
+function showNumbers(numbers:readonly [number, number]){
+  // numbers[0] = 284 //Mostra um erro
+  console.log(numbers[0]);
+  console.log(numbers[1]);
 }
+showNumbers([2, 8])
 
-showNumbers([1, 2])
-// showNumbers(['teste', 1])

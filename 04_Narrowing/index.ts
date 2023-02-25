@@ -1,4 +1,7 @@
-// 1 - type guard
+// Narrowing is a resource that identifies data type
+
+
+// 1 - type guard. Validação de tipos usando typeof
 function sum(a: number | string, b: number | string) {
   if (typeof a === 'string' && typeof b === 'string') {
     console.log(parseFloat(a) + parseFloat(b))
@@ -13,8 +16,8 @@ sum(1, 2)
 sum('4', '4')
 sum('5', 1)
 
-// 2 - checando se valor existe
 
+// 2 - checando se valor existe
 function operations(arr: number[], operation: string | undefined) {
   if (operation) {
     if (operation === 'sum') {
