@@ -1,0 +1,15 @@
+:root {
+  --back-color: #282c34;
+  --text-primary: #61dafb;
+  --text-secondary: #fff;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Helvetica, sans-serif;
+}
+
+.hide {
+  display: none !important;
+}
