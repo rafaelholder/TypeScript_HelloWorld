@@ -33,8 +33,10 @@ function App() {
     const modal = document.querySelector('#modal');
     if(display){
       modal!.classList.remove("hide")
+      
     }else{
       modal!.classList.add("hide")
+      
     }
 
   }
